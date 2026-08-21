@@ -1,0 +1,406 @@
+{
+  "login": {
+    "title": "Admin sign-in",
+    "subtitle": "Restricted to administrators",
+    "email": "Email",
+    "password": "Password",
+    "submit": "Sign in",
+    "submitting": "Signing in…",
+    "forbidden": "This account is not an administrator."
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "users": "Users",
+    "projects": "Projects",
+    "credits": "Credits",
+    "models": "Models",
+    "taskRoutes": "AI routing",
+    "providerKeys": "Provider keys",
+    "audit": "Audit log",
+    "settings": "Settings",
+    "logout": "Sign out"
+  },
+  "dashboard": {
+    "title": "Overview",
+    "kpi": {
+      "users": "Users",
+      "admins": "Admins",
+      "activeSubscriptions": "Active subscriptions",
+      "projects": "Projects",
+      "deployedProjects": "Deployed",
+      "todaySignups": "Today's signups",
+      "todayCredits": "Credits today",
+      "todaySpend": "Provider spend today"
+    },
+    "chart": {
+      "signups": "Signups (30d)",
+      "credits": "Credits consumed (30d)",
+      "spend": "Provider spend (30d)"
+    },
+    "margin": {
+      "title": "Margin (last 30 days)",
+      "creditsCharged": "Credits charged",
+      "providerCost": "Provider cost (USD)",
+      "implied": "Credits per USD (implied)"
+    },
+    "providerHealth": "Provider health",
+    "provider": {
+      "lastSuccess": "Last success",
+      "lastFailure": "Last failure",
+      "s24": "Successes 24h",
+      "f24": "Failures 24h"
+    }
+  },
+  "users": {
+    "title": "Users",
+    "search": "Search by email",
+    "filters": {
+      "role": "Role",
+      "status": "Status",
+      "any": "Any",
+      "admin": "Admin",
+      "user": "User",
+      "active": "Active",
+      "suspended": "Suspended",
+      "deleted": "Deleted",
+      "unverified": "Unverified"
+    },
+    "columns": {
+      "email": "Email",
+      "role": "Role",
+      "status": "Status",
+      "credits": "Credits",
+      "lastLogin": "Last login",
+      "createdAt": "Joined",
+      "actions": "Actions"
+    },
+    "detail": {
+      "profile": "Profile",
+      "projects": "Projects",
+      "ledger": "Recent ledger",
+      "stats": "Stats",
+      "danger": "Danger zone",
+      "adjustCredits": "Adjust credits",
+      "promote": "Promote to admin",
+      "demote": "Demote to user",
+      "suspend": "Suspend",
+      "unsuspend": "Unsuspend",
+      "resendVerification": "Resend verification",
+      "forceLogout": "Force logout",
+      "softDelete": "Soft delete"
+    },
+    "adjust": {
+      "title": "Adjust credits",
+      "amount": "Amount (+/-)",
+      "bucket": "Bucket",
+      "monthly": "Monthly",
+      "topup": "Top-up",
+      "reason": "Reason",
+      "submit": "Apply adjustment"
+    },
+    "manualSub": {
+      "title": "Manual subscription",
+      "none": "No active manual subscription.",
+      "current": "Active manual subscription",
+      "plan": "Plan",
+      "expires": "Expires",
+      "expiresIn": "Expires {{when}} ({{date}})",
+      "paid": "Amount paid",
+      "months": "Months",
+      "grantedBy": "Granted by",
+      "note": "Note",
+      "actions": {
+        "grant": "Grant manual subscription",
+        "revoke": "Revoke now"
+      },
+      "form": {
+        "title": "Grant manual subscription",
+        "plan": "Plan",
+        "months": "Months",
+        "amount": "Amount paid",
+        "currency": "Currency",
+        "note": "Note (optional)",
+        "notePlaceholder": "Cash payment from John Doe on 2026-04-18",
+        "override": "Override active Stripe subscription",
+        "overrideHelp": "This user already has an active Stripe subscription. Tick to grant anyway. Stripe will NOT be cancelled — handle that in the Stripe dashboard.",
+        "preview": "Grants {{credits}} credits, expires {{date}}.",
+        "submit": "Grant subscription",
+        "cancel": "Cancel"
+      },
+      "revokeConfirm": {
+        "title": "Revoke manual subscription?",
+        "body": "This will immediately drop the user back to the free plan and reset their monthly credits. The amount-paid record stays in the ledger.",
+        "reason": "Reason (optional)",
+        "submit": "Revoke now",
+        "cancel": "Cancel"
+      },
+      "errors": {
+        "stripeConflict": "User has an active Stripe subscription. Tick \"Override\" to proceed.",
+        "invalidPlan": "Pick a paid plan (Starter, Builder, Pro, or Elite).",
+        "amountInvalid": "Amount paid must be zero or more.",
+        "monthsInvalid": "Months must be between 1 and 36."
+      },
+      "toast": {
+        "granted": "Manual subscription granted.",
+        "revoked": "Manual subscription revoked."
+      }
+    }
+  },
+  "projects": {
+    "title": "Projects",
+    "search": "Search projects or prompts",
+    "filters": {
+      "status": "Status",
+      "deleted": "Deleted",
+      "only": "Only",
+      "hide": "Hide",
+      "any": "Any"
+    },
+    "columns": {
+      "name": "Name",
+      "owner": "Owner",
+      "status": "Status",
+      "stage": "Stage",
+      "locked": "Locked",
+      "deployed": "Deployed",
+      "createdAt": "Created",
+      "actions": "Actions"
+    },
+    "detail": {
+      "chats": "Chats",
+      "deployment": "Deployment",
+      "preview": "Preview",
+      "takedown": "Takedown",
+      "revert": "Revert takedown",
+      "lock": "Lock",
+      "unlock": "Unlock",
+      "rename": "Rename",
+      "softDelete": "Soft delete"
+    }
+  },
+  "credits": {
+    "title": "Credits",
+    "margin": {
+      "title": "30-day margin"
+    },
+    "topSpenders": "Top spenders",
+    "ledger": "Ledger",
+    "filter": {
+      "user": "User email or id",
+      "type": "Type",
+      "from": "From",
+      "to": "To"
+    },
+    "columns": {
+      "when": "When",
+      "user": "User",
+      "type": "Type",
+      "amount": "Amount",
+      "reason": "Reason"
+    }
+  },
+  "models": {
+    "title": "Models",
+    "refresh": "Refresh from providers",
+    "columns": {
+      "model": "Model",
+      "provider": "Provider",
+      "released": "Released",
+      "tier": "Tier",
+      "category": "Category",
+      "enabled": "Enabled",
+      "input": "Input / 1M",
+      "output": "Output / 1M",
+      "actions": "Actions"
+    },
+    "filter": {
+      "category": "Category:",
+      "all": "All",
+      "status": "Status:"
+    },
+    "categories": {
+      "coding": "Coding",
+      "image": "Image",
+      "content": "Content"
+    },
+    "form": {
+      "tier": "Tier",
+      "category": "Category",
+      "order": "Order"
+    },
+    "edit": "Edit",
+    "diff": {
+      "title": "Refreshed catalog",
+      "added": "Added",
+      "updated": "Updated last-seen",
+      "skipped": "Skipped",
+      "stale": "Was enabled, now retired by provider",
+      "staleHint": "These were enabled until this refresh, and their provider no longer lists them. They have been deprecated automatically, so nothing can route to them any more — check they were not a primary or fallback on the AI routing page, or somebody’s project default.",
+      "deprecated": "Newly deprecated",
+      "restored": "Restored"
+    },
+    "releasedUnknownHint": "Release date reported by the provider. Google's model list doesn't publish one, and rows added before this column existed show it after the next catalog refresh.",
+    "providerHealth": {
+      "ok": "Key healthy",
+      "noKey": "No key",
+      "status": {
+        "rate_limited": "Rate limited",
+        "quota_exceeded": "Quota exceeded",
+        "invalid": "Invalid key",
+        "disabled": "Disabled",
+        "healthy": "Healthy"
+      },
+      "warningTitle": "{{provider}} is not routable right now.",
+      "warningBody": "Its API key is not healthy, so this provider is excluded from routing and none of the models below can be used — no matter how they are configured here. Fix it on the Provider keys page (Test re-checks the key and clears a stale flag).",
+      "warningNoKey": "No API key is configured for this provider, so none of the models below can be used. Add one on the Provider keys page."
+    },
+    "status": {
+      "active": "Active",
+      "inactive": "Not enabled",
+      "deprecated": "Deprecated",
+      "all": "All"
+    },
+    "deprecatedHint": "The provider stopped listing this model (first noticed {{date}}). It is blocked from routing and hidden from the user picker. It comes back automatically if the provider lists it again.",
+    "enabledBlocked": "blocked",
+    "enabledBlockedHint": "This model is enabled but deprecated, so the router refuses it and users cannot pick it. Turn it off to tidy the list.",
+    "emptyForFilter": "No models match this filter."
+  },
+  "providerKeys": {
+    "title": "AI provider keys",
+    "add": "Add key",
+    "save": "Save",
+    "test": "Test",
+    "checkHealth": "Run health check (same as Test)",
+    "checkHealthHint": "Runs a minimal API call against the provider to verify this key.",
+    "testTitle": "Key test result",
+    "testOk": "Success",
+    "testFail": "Failed",
+    "allModels": "All models",
+    "confirmDelete": "Delete provider key \"{{name}}\"? This cannot be undone.",
+    "createTitle": "Add provider key",
+    "editTitle": "Edit: {{name}}",
+    "editHint": "Secrets are never shown again after save. Leave rotate empty to keep the current key.",
+    "usageLine": "total {{total}} · today {{day}} · this minute {{min}}",
+    "columns": {
+      "name": "Name / preview",
+      "provider": "Provider",
+      "priority": "Priority",
+      "health": "Health",
+      "models": "Models",
+      "usage": "Usage",
+      "active": "Active",
+      "actions": "Actions"
+    },
+    "form": {
+      "provider": "Provider",
+      "name": "Label",
+      "apiKey": "API key",
+      "openaiBaseUrl": "OpenAI base URL (optional)",
+      "priority": "Priority (lower = tried first)",
+      "models": "Restrict to model IDs (one per line or comma-separated). Empty = all.",
+      "modelsPlaceholder": "gpt-4o\nclaude-sonnet-4-5",
+      "rotateKey": "Rotate API key (optional)",
+      "rotatePlaceholder": "Leave blank to keep existing",
+      "health": "Health status"
+    },
+    "health": {
+      "healthy": "Healthy",
+      "rate_limited": "Rate limited",
+      "quota_exceeded": "Quota exceeded",
+      "disabled": "Disabled",
+      "invalid": "Invalid"
+    }
+  },
+  "audit": {
+    "title": "Audit log",
+    "columns": {
+      "when": "When",
+      "actor": "Actor",
+      "action": "Action",
+      "target": "Target",
+      "reason": "Reason"
+    },
+    "detail": {
+      "before": "Before",
+      "after": "After",
+      "ip": "IP",
+      "userAgent": "User agent"
+    }
+  },
+  "settings": {
+    "title": "Settings",
+    "admins": "Administrators",
+    "promote": {
+      "title": "Promote a user",
+      "email": "User email",
+      "reason": "Reason",
+      "submit": "Promote"
+    },
+    "maintenance": {
+      "title": "Maintenance mode",
+      "enable": "Enable maintenance mode",
+      "message": "Maintenance message (optional)",
+      "save": "Save"
+    },
+    "codingModel": {
+      "title": "Coding model",
+      "hint": "Used by the Cursor agent to write application code. The default model on the Models page drives planning only.",
+      "label": "Model",
+      "serverDefault": "Server default"
+    }
+  },
+  "common": {
+    "confirm": "Confirm",
+    "reasonRequired": "A reason is required for this action.",
+    "reason": "Reason",
+    "search": "Search",
+    "loading": "Loading…",
+    "empty": "Nothing to show yet.",
+    "page": "Page",
+    "of": "of",
+    "total": "total",
+    "close": "Close",
+    "saved": "Saved",
+    "save": "Save",
+    "saving": "Saving…",
+    "failed": "Request failed"
+  },
+  "taskRoutes": {
+    "title": "AI routing",
+    "subtitle": "Pick which model runs each kind of AI request, with an ordered fallback chain. A task route beats the global \"Auto\" default; tick Enforce to also beat the user's own model pick. If nothing in a chain is available, routing falls back to the global default automatically.",
+    "primary": "Primary model",
+    "fallbacks": "Fallback chain (in order)",
+    "addFallback": "Add fallback",
+    "pickModel": "Select a model…",
+    "notConfigured": "Not configured",
+    "enforced": "Enforced",
+    "disabled": "Disabled",
+    "enforceLabel": "Enforce over user + project choice",
+    "enforceHint": "When on, this route overrides the per-request model picker and the per-project default. Use for tasks where model quality is a platform concern.",
+    "enabledLabel": "Route enabled",
+    "moveUp": "Move up",
+    "moveDown": "Move down",
+    "remove": "Remove",
+    "resolved": {
+      "none": "Unresolved"
+    },
+    "source": {
+      "taskRoutePrimary": "Primary",
+      "taskRouteFallback": "Fallback",
+      "globalDefault": "Global default",
+      "legacyTable": "Built-in table"
+    },
+    "reason": {
+      "ok": "Available",
+      "unknown_model": "not in the model catalog",
+      "model_disabled": "disabled in the catalog",
+      "model_deprecated": "retired by its provider",
+      "provider_unavailable": "provider has no healthy key"
+    },
+    "globalDefault": {
+      "title": "Global default (\"Auto\")",
+      "hint": "Used when a task has no route, or when every model in its chain is unavailable. Task routes below take precedence.",
+      "none": "No global default"
+    }
+  }
+}

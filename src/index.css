@@ -1,0 +1,356 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  /* --color-primary: #0a0f29; */
+  --color-primary: rgba(255, 170, 150, 0.8);
+  --color-secondary: rgba(250, 237, 214, 0.9);
+  --color-background: #ffffff;
+  --color-foreground: #0f0f0f;
+  --color-muted: #f3f4f6;
+  --color-muted-foreground: #4b5563;
+  --color-border: rgba(0, 0, 0, 0.12);
+  --color-card: rgba(255, 255, 255, 0.9);
+  --color-card-foreground: #0f0f0f;
+  --color-text-color: #0f0f0f;
+}
+
+body{
+    font-family: "Inter", sans-serif;
+}
+
+html,
+body {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+}
+
+html.light {
+  color-scheme: light;
+}
+
+/* Ensure QuestionnaireCard and similar use primary at 10% in light theme */
+html.light .bg-primary\/10 {
+  background-color: rgba(255, 170, 150, 0.1);
+}
+
+html.dark {
+  color-scheme: dark;
+  --color-background: #09090b;
+  --color-foreground: #fafafa;
+  --color-muted: #18181b;
+  --color-muted-foreground: #a1a1aa;
+  --color-border: rgba(255, 255, 255, 0.14);
+  --color-card: rgba(24, 24, 27, 0.9);
+  --color-card-foreground: #fafafa;
+  --color-text-color: #fafafa;
+
+  /* Darker / richer accents for gradients */
+  --color-primary: rgba(255, 170, 150, 0.8);
+  --color-secondary: rgba(250, 237, 214, 0.9);
+}
+
+/*
+  Broad dark-mode coverage:
+  Many screens still use light-only Tailwind utilities (bg-white, text-gray-900, etc.).
+  These overrides make them render correctly when `.dark` is set on <html>.
+*/
+html.dark .bg-white {
+  --tw-bg-opacity: 1;
+  background-color: rgb(9 9 11 / var(--tw-bg-opacity));
+}
+
+html.dark .bg-gray-50 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(24 24 27 / var(--tw-bg-opacity));
+}
+
+html.dark .bg-gray-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(39 39 42 / var(--tw-bg-opacity));
+}
+
+html.dark .bg-gray-200 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(63 63 70 / var(--tw-bg-opacity));
+}
+
+html.dark .bg-gray-300 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(82 82 91 / var(--tw-bg-opacity));
+}
+
+html.dark .text-gray-900 {
+  --tw-text-opacity: 1;
+  color: rgb(250 250 250 / var(--tw-text-opacity));
+}
+
+html.dark .text-gray-800 {
+  --tw-text-opacity: 1;
+  color: rgb(244 244 245 / var(--tw-text-opacity));
+}
+
+html.dark .text-gray-700 {
+  --tw-text-opacity: 1;
+  color: rgb(228 228 231 / var(--tw-text-opacity));
+}
+
+html.dark .text-gray-600 {
+  --tw-text-opacity: 1;
+  color: rgb(212 212 216 / var(--tw-text-opacity));
+}
+
+html.dark .text-gray-500 {
+  --tw-text-opacity: 1;
+  color: rgb(161 161 170 / var(--tw-text-opacity));
+}
+
+html.dark .text-gray-400 {
+  --tw-text-opacity: 1;
+  color: rgb(113 113 122 / var(--tw-text-opacity));
+}
+
+html.dark .border-gray-100 {
+  --tw-border-opacity: 1;
+  border-color: rgb(63 63 70 / var(--tw-border-opacity));
+}
+
+html.dark .border-gray-200 {
+  --tw-border-opacity: 1;
+  border-color: rgb(82 82 91 / var(--tw-border-opacity));
+}
+
+html.dark .border-gray-300 {
+  --tw-border-opacity: 1;
+  border-color: rgb(113 113 122 / var(--tw-border-opacity));
+}
+
+html.dark .border-black\/10 {
+  border-color: rgb(255 255 255 / 0.12);
+}
+
+html.dark .bg-white\/80 {
+  background-color: rgb(24 24 27 / 0.8);
+}
+
+html.dark .bg-white\/90 {
+  background-color: rgb(24 24 27 / 0.9);
+}
+
+html.dark .bg-white\/95 {
+  background-color: rgb(24 24 27 / 0.95);
+}
+
+html.dark .border-gray-200\/50 {
+  border-color: rgb(82 82 91 / 0.5);
+}
+
+html.dark .border-gray-200\/60 {
+  border-color: rgb(82 82 91 / 0.6);
+}
+
+html.dark .to-white {
+  --tw-gradient-to: rgb(9 9 11) var(--tw-gradient-to-position);
+}
+
+html.dark .hover\:bg-gray-50:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(39 39 42 / var(--tw-bg-opacity));
+}
+
+html.dark .hover\:bg-gray-100:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(63 63 70 / var(--tw-bg-opacity));
+}
+
+html.dark .hover\:text-gray-900:hover {
+  --tw-text-opacity: 1;
+  color: rgb(250 250 250 / var(--tw-text-opacity));
+}
+
+html.dark .shadow-sm {
+  --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.45);
+  --tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+    var(--tw-ring-shadow, 0 0 #0000),
+    var(--tw-shadow);
+}
+
+/* Gradient Background */
+.gradient-background {
+  background: radial-gradient(at 0% 0%, var(--color-secondary) 0%, transparent 50%),
+              /* radial-gradient(at 50% 50%, rgba(170, 200, 255, 0.6) 0%, transparent 50%), */
+              radial-gradient(at 100% 100%, var(--color-primary) 0%, transparent 50%);
+  opacity: 1;
+  /* animation: gradientShift 10s ease infinite; */
+  /* background-size: 200% 200%; */
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Noise Texture Overlay */
+.noise-texture {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.1;
+}
+
+/* Animation Keyframes */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+@keyframes slideInFromBottom {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Animation Classes */
+.animate-fade-in-up {
+  animation: fadeInUp 0.8s ease-out forwards;
+  opacity: 0;
+}
+
+.animate-fade-in {
+  animation: fadeIn 1s ease-out forwards;
+  opacity: 0;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-pulse-slow {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.animate-slide-in-bottom {
+  animation: slideInFromBottom 0.5s ease-out forwards;
+  opacity: 0;
+}
+
+/* Animation Delays */
+.animation-delay-200 {
+  animation-delay: 0.2s;
+}
+
+.animation-delay-400 {
+  animation-delay: 0.4s;
+}
+
+.animation-delay-600 {
+  animation-delay: 0.6s;
+}
+
+.animation-delay-800 {
+  animation-delay: 0.8s;
+}
+
+/* Hover Animations */
+.hover-scale {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-scale:hover {
+  transform: scale(1.02);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.hover-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Text Animation */
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.text-shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.8) 0%,
+    rgba(0, 0, 0, 1) 50%,
+    rgba(0, 0, 0, 0.8) 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Typing Cursor Animation */
+@keyframes blink {
+  0%, 50% {
+    opacity: 1;
+  }
+  51%, 100% {
+    opacity: 0;
+  }
+}
+
+.typing-cursor::after {
+  content: "|";
+  animation: blink 1s infinite;
+  color: currentColor;
+}

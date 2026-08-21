@@ -1,0 +1,406 @@
+{
+  "login": {
+    "title": "Connexion admin",
+    "subtitle": "Réservé aux administrateurs",
+    "email": "Email",
+    "password": "Mot de passe",
+    "submit": "Se connecter",
+    "submitting": "Connexion…",
+    "forbidden": "Ce compte n'est pas administrateur."
+  },
+  "nav": {
+    "dashboard": "Tableau de bord",
+    "users": "Utilisateurs",
+    "projects": "Projets",
+    "credits": "Crédits",
+    "models": "Modèles",
+    "taskRoutes": "Routage IA",
+    "providerKeys": "Clés fournisseur",
+    "audit": "Journal d'audit",
+    "settings": "Paramètres",
+    "logout": "Déconnexion"
+  },
+  "dashboard": {
+    "title": "Vue d'ensemble",
+    "kpi": {
+      "users": "Utilisateurs",
+      "admins": "Administrateurs",
+      "activeSubscriptions": "Abonnements actifs",
+      "projects": "Projets",
+      "deployedProjects": "Déployés",
+      "todaySignups": "Inscriptions aujourd'hui",
+      "todayCredits": "Crédits aujourd'hui",
+      "todaySpend": "Dépenses fournisseur aujourd'hui"
+    },
+    "chart": {
+      "signups": "Inscriptions (30j)",
+      "credits": "Crédits consommés (30j)",
+      "spend": "Dépenses fournisseur (30j)"
+    },
+    "margin": {
+      "title": "Marge (30 derniers jours)",
+      "creditsCharged": "Crédits facturés",
+      "providerCost": "Coût fournisseur (USD)",
+      "implied": "Crédits par USD (implicite)"
+    },
+    "providerHealth": "Santé des fournisseurs",
+    "provider": {
+      "lastSuccess": "Dernier succès",
+      "lastFailure": "Dernier échec",
+      "s24": "Succès 24h",
+      "f24": "Échecs 24h"
+    }
+  },
+  "users": {
+    "title": "Utilisateurs",
+    "search": "Rechercher par email",
+    "filters": {
+      "role": "Rôle",
+      "status": "Statut",
+      "any": "Tous",
+      "admin": "Admin",
+      "user": "Utilisateur",
+      "active": "Actif",
+      "suspended": "Suspendu",
+      "deleted": "Supprimé",
+      "unverified": "Non vérifié"
+    },
+    "columns": {
+      "email": "Email",
+      "role": "Rôle",
+      "status": "Statut",
+      "credits": "Crédits",
+      "lastLogin": "Dernière connexion",
+      "createdAt": "Inscrit le",
+      "actions": "Actions"
+    },
+    "detail": {
+      "profile": "Profil",
+      "projects": "Projets",
+      "ledger": "Historique récent",
+      "stats": "Statistiques",
+      "danger": "Zone sensible",
+      "adjustCredits": "Ajuster les crédits",
+      "promote": "Promouvoir administrateur",
+      "demote": "Rétrograder utilisateur",
+      "suspend": "Suspendre",
+      "unsuspend": "Réactiver",
+      "resendVerification": "Renvoyer la vérification",
+      "forceLogout": "Forcer la déconnexion",
+      "softDelete": "Suppression douce"
+    },
+    "adjust": {
+      "title": "Ajuster les crédits",
+      "amount": "Montant (+/-)",
+      "bucket": "Portefeuille",
+      "monthly": "Mensuel",
+      "topup": "Recharge",
+      "reason": "Motif",
+      "submit": "Appliquer"
+    },
+    "manualSub": {
+      "title": "Abonnement manuel",
+      "none": "Aucun abonnement manuel actif.",
+      "current": "Abonnement manuel actif",
+      "plan": "Plan",
+      "expires": "Expire",
+      "expiresIn": "Expire {{when}} ({{date}})",
+      "paid": "Montant payé",
+      "months": "Mois",
+      "grantedBy": "Accordé par",
+      "note": "Note",
+      "actions": {
+        "grant": "Accorder un abonnement manuel",
+        "revoke": "Révoquer maintenant"
+      },
+      "form": {
+        "title": "Accorder un abonnement manuel",
+        "plan": "Plan",
+        "months": "Mois",
+        "amount": "Montant payé",
+        "currency": "Devise",
+        "note": "Note (optionnel)",
+        "notePlaceholder": "Paiement en espèces de Jean Dupont le 18/04/2026",
+        "override": "Outrepasser l'abonnement Stripe actif",
+        "overrideHelp": "Cet utilisateur a déjà un abonnement Stripe actif. Cochez pour accorder quand même. Stripe ne sera PAS annulé — gérez-le dans le tableau de bord Stripe.",
+        "preview": "Accorde {{credits}} crédits, expire {{date}}.",
+        "submit": "Accorder l'abonnement",
+        "cancel": "Annuler"
+      },
+      "revokeConfirm": {
+        "title": "Révoquer l'abonnement manuel ?",
+        "body": "L'utilisateur sera immédiatement rétrogradé au plan gratuit et ses crédits mensuels seront réinitialisés. L'enregistrement du paiement reste dans le journal.",
+        "reason": "Motif (optionnel)",
+        "submit": "Révoquer maintenant",
+        "cancel": "Annuler"
+      },
+      "errors": {
+        "stripeConflict": "L'utilisateur a un abonnement Stripe actif. Cochez « Outrepasser » pour continuer.",
+        "invalidPlan": "Choisissez un plan payant (Starter, Builder, Pro ou Elite).",
+        "amountInvalid": "Le montant payé doit être positif ou nul.",
+        "monthsInvalid": "Le nombre de mois doit être entre 1 et 36."
+      },
+      "toast": {
+        "granted": "Abonnement manuel accordé.",
+        "revoked": "Abonnement manuel révoqué."
+      }
+    }
+  },
+  "projects": {
+    "title": "Projets",
+    "search": "Rechercher projets ou prompts",
+    "filters": {
+      "status": "Statut",
+      "deleted": "Supprimés",
+      "only": "Uniquement",
+      "hide": "Masquer",
+      "any": "Tous"
+    },
+    "columns": {
+      "name": "Nom",
+      "owner": "Propriétaire",
+      "status": "Statut",
+      "stage": "Étape",
+      "locked": "Verrouillé",
+      "deployed": "Déployé",
+      "createdAt": "Créé",
+      "actions": "Actions"
+    },
+    "detail": {
+      "chats": "Conversations",
+      "deployment": "Déploiement",
+      "preview": "Aperçu",
+      "takedown": "Retirer",
+      "revert": "Annuler retrait",
+      "lock": "Verrouiller",
+      "unlock": "Déverrouiller",
+      "rename": "Renommer",
+      "softDelete": "Suppression douce"
+    }
+  },
+  "credits": {
+    "title": "Crédits",
+    "margin": {
+      "title": "Marge 30 jours"
+    },
+    "topSpenders": "Plus gros consommateurs",
+    "ledger": "Historique",
+    "filter": {
+      "user": "Email ou id utilisateur",
+      "type": "Type",
+      "from": "Du",
+      "to": "Au"
+    },
+    "columns": {
+      "when": "Quand",
+      "user": "Utilisateur",
+      "type": "Type",
+      "amount": "Montant",
+      "reason": "Motif"
+    }
+  },
+  "models": {
+    "title": "Modèles",
+    "refresh": "Actualiser depuis les fournisseurs",
+    "columns": {
+      "model": "Modèle",
+      "provider": "Fournisseur",
+      "released": "Publié",
+      "tier": "Niveau",
+      "category": "Catégorie",
+      "enabled": "Activé",
+      "input": "Entrée / 1M",
+      "output": "Sortie / 1M",
+      "actions": "Actions"
+    },
+    "filter": {
+      "category": "Catégorie :",
+      "all": "Toutes",
+      "status": "Statut :"
+    },
+    "categories": {
+      "coding": "Codage",
+      "image": "Image",
+      "content": "Contenu"
+    },
+    "form": {
+      "tier": "Niveau",
+      "category": "Catégorie",
+      "order": "Ordre"
+    },
+    "edit": "Modifier",
+    "diff": {
+      "title": "Catalogue actualisé",
+      "added": "Ajoutés",
+      "updated": "Dernier contact mis à jour",
+      "skipped": "Ignorés",
+      "stale": "Étaient activés, retirés par le fournisseur",
+      "staleHint": "Ces modèles étaient activés jusqu'à cette actualisation et leur fournisseur ne les référence plus. Ils ont été marqués obsolètes automatiquement : plus rien ne peut y être routé. Vérifiez qu'ils ne servaient pas de modèle principal ou de repli sur la page de routage IA, ni de modèle par défaut d'un projet.",
+      "deprecated": "Nouvellement obsolètes",
+      "restored": "Rétablis"
+    },
+    "releasedUnknownHint": "Date de publication indiquée par le fournisseur. La liste de modèles de Google n'en fournit pas, et les lignes ajoutées avant cette colonne l'afficheront après la prochaine actualisation du catalogue.",
+    "providerHealth": {
+      "ok": "Clé saine",
+      "noKey": "Aucune clé",
+      "status": {
+        "rate_limited": "Limite de débit",
+        "quota_exceeded": "Quota dépassé",
+        "invalid": "Clé invalide",
+        "disabled": "Désactivée",
+        "healthy": "Saine"
+      },
+      "warningTitle": "{{provider}} n'est pas routable actuellement.",
+      "warningBody": "Sa clé API n'est pas saine : ce fournisseur est exclu du routage et aucun des modèles ci-dessous ne peut être utilisé, quelle que soit leur configuration ici. Corrigez-le sur la page Clés fournisseur (Tester revérifie la clé et efface un indicateur obsolète).",
+      "warningNoKey": "Aucune clé API n'est configurée pour ce fournisseur ; aucun des modèles ci-dessous ne peut être utilisé. Ajoutez-en une sur la page Clés fournisseur."
+    },
+    "status": {
+      "active": "Actifs",
+      "inactive": "Non activés",
+      "deprecated": "Obsolètes",
+      "all": "Tous"
+    },
+    "deprecatedHint": "Le fournisseur ne référence plus ce modèle (constaté le {{date}}). Il est exclu du routage et masqué dans le sélecteur utilisateur. Il revient automatiquement si le fournisseur le référence à nouveau.",
+    "enabledBlocked": "bloqué",
+    "enabledBlockedHint": "Ce modèle est activé mais obsolète : le routeur le refuse et les utilisateurs ne peuvent pas le choisir. Désactivez-le pour nettoyer la liste.",
+    "emptyForFilter": "Aucun modèle ne correspond à ce filtre."
+  },
+  "providerKeys": {
+    "title": "Clés API fournisseurs",
+    "add": "Ajouter une clé",
+    "save": "Enregistrer",
+    "test": "Tester",
+    "checkHealth": "Vérifier l'état (identique à Tester)",
+    "checkHealthHint": "Appel API minimal vers le fournisseur pour valider la clé.",
+    "testTitle": "Résultat du test",
+    "testOk": "Succès",
+    "testFail": "Échec",
+    "allModels": "Tous les modèles",
+    "confirmDelete": "Supprimer la clé « {{name}} » ? Irréversible.",
+    "createTitle": "Ajouter une clé fournisseur",
+    "editTitle": "Modifier : {{name}}",
+    "editHint": "Les secrets ne sont plus affichés après enregistrement. Laissez la rotation vide pour conserver la clé actuelle.",
+    "usageLine": "total {{total}} · aujourd'hui {{day}} · cette minute {{min}}",
+    "columns": {
+      "name": "Nom / aperçu",
+      "provider": "Fournisseur",
+      "priority": "Priorité",
+      "health": "État",
+      "models": "Modèles",
+      "usage": "Usage",
+      "active": "Actif",
+      "actions": "Actions"
+    },
+    "form": {
+      "provider": "Fournisseur",
+      "name": "Libellé",
+      "apiKey": "Clé API",
+      "openaiBaseUrl": "URL de base OpenAI (optionnel)",
+      "priority": "Priorité (plus bas = essayé en premier)",
+      "models": "Limiter aux IDs de modèles (une par ligne ou séparés par des virgules). Vide = tous.",
+      "modelsPlaceholder": "gpt-4o\nclaude-sonnet-4-5",
+      "rotateKey": "Rotation de la clé (optionnel)",
+      "rotatePlaceholder": "Laisser vide pour conserver",
+      "health": "État de santé"
+    },
+    "health": {
+      "healthy": "Sain",
+      "rate_limited": "Limite de débit",
+      "quota_exceeded": "Quota dépassé",
+      "disabled": "Désactivé",
+      "invalid": "Invalide"
+    }
+  },
+  "audit": {
+    "title": "Journal d'audit",
+    "columns": {
+      "when": "Quand",
+      "actor": "Acteur",
+      "action": "Action",
+      "target": "Cible",
+      "reason": "Motif"
+    },
+    "detail": {
+      "before": "Avant",
+      "after": "Après",
+      "ip": "IP",
+      "userAgent": "Agent utilisateur"
+    }
+  },
+  "settings": {
+    "title": "Paramètres",
+    "admins": "Administrateurs",
+    "promote": {
+      "title": "Promouvoir un utilisateur",
+      "email": "Email utilisateur",
+      "reason": "Motif",
+      "submit": "Promouvoir"
+    },
+    "maintenance": {
+      "title": "Mode maintenance",
+      "enable": "Activer le mode maintenance",
+      "message": "Message (facultatif)",
+      "save": "Enregistrer"
+    },
+    "codingModel": {
+      "title": "Modèle de codage",
+      "hint": "Utilisé par l'agent Cursor pour écrire le code de l'application. Le modèle par défaut de la page Modèles ne concerne que la planification.",
+      "label": "Modèle",
+      "serverDefault": "Valeur par défaut du serveur"
+    }
+  },
+  "common": {
+    "confirm": "Confirmer",
+    "reasonRequired": "Un motif est requis.",
+    "reason": "Motif",
+    "search": "Rechercher",
+    "loading": "Chargement…",
+    "empty": "Aucune donnée pour le moment.",
+    "page": "Page",
+    "of": "sur",
+    "total": "total",
+    "close": "Fermer",
+    "saved": "Enregistré",
+    "save": "Enregistrer",
+    "saving": "Enregistrement…",
+    "failed": "Échec de la requête"
+  },
+  "taskRoutes": {
+    "title": "Routage IA",
+    "subtitle": "Choisissez le modèle utilisé pour chaque type de requête IA, avec une chaîne de repli ordonnée. Une route de tâche prime sur le défaut global « Auto » ; cochez Imposer pour primer aussi sur le choix de l'utilisateur. Si aucun modèle de la chaîne n'est disponible, le routage revient automatiquement au défaut global.",
+    "primary": "Modèle principal",
+    "fallbacks": "Chaîne de repli (dans l'ordre)",
+    "addFallback": "Ajouter un repli",
+    "pickModel": "Sélectionner un modèle…",
+    "notConfigured": "Non configuré",
+    "enforced": "Imposé",
+    "disabled": "Désactivé",
+    "enforceLabel": "Imposer sur le choix utilisateur et projet",
+    "enforceHint": "Si activé, cette route prime sur le sélecteur de modèle par requête et sur le défaut du projet. À utiliser quand la qualité du modèle est un enjeu de plateforme.",
+    "enabledLabel": "Route activée",
+    "moveUp": "Monter",
+    "moveDown": "Descendre",
+    "remove": "Retirer",
+    "resolved": {
+      "none": "Non résolu"
+    },
+    "source": {
+      "taskRoutePrimary": "Principal",
+      "taskRouteFallback": "Repli",
+      "globalDefault": "Défaut global",
+      "legacyTable": "Table intégrée"
+    },
+    "reason": {
+      "ok": "Disponible",
+      "unknown_model": "absent du catalogue de modèles",
+      "model_disabled": "désactivé dans le catalogue",
+      "model_deprecated": "retiré par son fournisseur",
+      "provider_unavailable": "aucune clé saine pour ce fournisseur"
+    },
+    "globalDefault": {
+      "title": "Modèle par défaut global (« Auto »)",
+      "hint": "Utilisé lorsqu'une tâche n'a pas de route, ou lorsqu'aucun modèle de sa chaîne n'est disponible. Les routes par tâche ci-dessous sont prioritaires.",
+      "none": "Aucun modèle par défaut global"
+    }
+  }
+}
