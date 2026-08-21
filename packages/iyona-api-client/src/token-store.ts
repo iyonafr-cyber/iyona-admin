@@ -1,5 +1,5 @@
-/** Token persistence used by Jarvis auth interceptors (localStorage in both SPAs). */
-export interface JarvisTokenStore {
+/** Token persistence used by Iyona auth interceptors (localStorage in both SPAs). */
+export interface IyonaTokenStore {
   getAccessToken(): string | null;
   getRefreshToken(): string | null;
   setTokens(accessToken: string, refreshToken: string): void;

@@ -58,13 +58,13 @@ const AdminSidebarLayout = () => {
       <aside className="hidden md:flex h-screen w-64 shrink-0 flex-col border-r border-border bg-card/60 backdrop-blur">
         <div className="flex shrink-0 items-center gap-2 px-5 py-5 border-b border-border">
           <img
-            src="/jarvis-logo.png"
-            alt="Jarvis"
+            src="/iyona-logo.png"
+            alt="Iyona"
             className="h-9 w-9 rounded-lg object-contain"
           />
           <div className="flex flex-col">
             <span className="text-sm font-semibold tracking-tight">
-              Jarvis Admin
+              Iyona Admin
             </span>
             <span className="text-[10px] text-muted-foreground">
               Operator console
@@ -123,11 +123,11 @@ const AdminSidebarLayout = () => {
         <header className="md:hidden flex shrink-0 items-center justify-between gap-2 px-4 py-3 border-b border-border bg-card/60 backdrop-blur">
           <div className="flex items-center gap-2">
             <img
-              src="/jarvis-logo.png"
-              alt="Jarvis"
+              src="/iyona-logo.png"
+              alt="Iyona"
               className="h-6 w-6 rounded object-contain"
             />
-            <span className="text-sm font-semibold">Jarvis Admin</span>
+            <span className="text-sm font-semibold">Iyona Admin</span>
           </div>
           <div className="flex items-center gap-2">
             <ThemeToggle />

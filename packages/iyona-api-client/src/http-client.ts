@@ -1,7 +1,7 @@
 import type { AxiosInstance } from "axios";
 
 /** Shared request config for the thin JSON http client (both SPAs). */
-export interface JarvisHttpClientConfig {
+export interface IyonaHttpClientConfig {
   params?: object;
   timeout?: number;
   signal?: AbortSignal;
@@ -29,7 +29,7 @@ function requestWithJsonBody<T>(
   method: BodyMethod,
   url: string,
   data?: object,
-  config?: JarvisHttpClientConfig,
+  config?: IyonaHttpClientConfig,
 ): Promise<T> {
   if (data) {
     validateJsonSerializable(data);
@@ -37,30 +37,30 @@ function requestWithJsonBody<T>(
   return instance[method]<T>(url, data, config).then((res) => res.data);
 }
 
-export interface JarvisHttpClient {
-  get: <T>(url: string, config?: JarvisHttpClientConfig) => Promise<T>;
-  post: <T>(url: string, data?: object, config?: JarvisHttpClientConfig) => Promise<T>;
-  put: <T>(url: string, data?: object, config?: JarvisHttpClientConfig) => Promise<T>;
-  patch: <T>(url: string, data?: object, config?: JarvisHttpClientConfig) => Promise<T>;
-  delete: <T>(url: string, config?: JarvisHttpClientConfig) => Promise<T>;
+export interface IyonaHttpClient {
+  get: <T>(url: string, config?: IyonaHttpClientConfig) => Promise<T>;
+  post: <T>(url: string, data?: object, config?: IyonaHttpClientConfig) => Promise<T>;
+  put: <T>(url: string, data?: object, config?: IyonaHttpClientConfig) => Promise<T>;
+  patch: <T>(url: string, data?: object, config?: IyonaHttpClientConfig) => Promise<T>;
+  delete: <T>(url: string, config?: IyonaHttpClientConfig) => Promise<T>;
 }
 
 /** Returns `res.data` helpers around the shared axios instance (JSON validate on mutating bodies). */
-export function createHttpClient(axiosInstance: AxiosInstance): JarvisHttpClient {
+export function createHttpClient(axiosInstance: AxiosInstance): IyonaHttpClient {
   return {
-    get: <T>(url: string, config?: JarvisHttpClientConfig) =>
+    get: <T>(url: string, config?: IyonaHttpClientConfig) =>
       axiosInstance.get<T>(url, config).then((res) => res.data),
 
-    post: <T>(url: string, data?: object, config?: JarvisHttpClientConfig) =>
+    post: <T>(url: string, data?: object, config?: IyonaHttpClientConfig) =>
       requestWithJsonBody<T>(axiosInstance, "post", url, data, config),
 
-    put: <T>(url: string, data?: object, config?: JarvisHttpClientConfig) =>
+    put: <T>(url: string, data?: object, config?: IyonaHttpClientConfig) =>
       requestWithJsonBody<T>(axiosInstance, "put", url, data, config),
 
-    patch: <T>(url: string, data?: object, config?: JarvisHttpClientConfig) =>
+    patch: <T>(url: string, data?: object, config?: IyonaHttpClientConfig) =>
       requestWithJsonBody<T>(axiosInstance, "patch", url, data, config),
 
-    delete: <T>(url: string, config?: JarvisHttpClientConfig) =>
+    delete: <T>(url: string, config?: IyonaHttpClientConfig) =>
       axiosInstance.delete<T>(url, config).then((res) => res.data),
   };
 }

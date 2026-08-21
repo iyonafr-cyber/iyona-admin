@@ -1,5 +1,5 @@
 /**
- * Admin-only REST endpoints. Mirrors the routes exposed by jarvis-backend
+ * Admin-only REST endpoints. Mirrors the routes exposed by iyona-backend
  * under `/admin/*` plus the minimal auth + user routes we need for the
  * admin login flow.
  */

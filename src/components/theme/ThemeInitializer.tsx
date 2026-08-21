@@ -2,8 +2,11 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../../store/store";
 import { setTheme, type ThemeMode } from "../../store/themeSlice";
+import { readMigratedLocalStorage } from "../../utils/storage/preferenceMigration";
 
-const STORAGE_KEY = "jarvis-theme";
+// Bucket B (rebrand): renamed jarvis-theme → iyona-theme, migrated on read.
+const STORAGE_KEY = "iyona-theme";
+const LEGACY_STORAGE_KEY = "jarvis-theme";
 
 const ThemeInitializer = () => {
   const dispatch = useDispatch();
@@ -14,7 +17,10 @@ const ThemeInitializer = () => {
     let initialMode: ThemeMode = "light";
 
     try {
-      const stored = localStorage.getItem(STORAGE_KEY) as ThemeMode | null;
+      const stored = readMigratedLocalStorage(
+        STORAGE_KEY,
+        LEGACY_STORAGE_KEY,
+      ) as ThemeMode | null;
       if (stored === "light" || stored === "dark") {
         initialMode = stored;
       } else {

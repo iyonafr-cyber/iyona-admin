@@ -3,7 +3,7 @@ import { API_ENDPOINTS } from "../../../api/endpoints";
 
 /**
  * Plans the admin UI is allowed to grant manually. Mirrors
- * `GRANTABLE_PLAN_IDS` in jarvis-backend's
+ * `GRANTABLE_PLAN_IDS` in iyona-backend's
  * `manual-subscriptions.controller.ts` (free is intentionally excluded).
  */
 export type GrantablePlanId = "starter" | "builder" | "pro" | "elite";
@@ -17,7 +17,7 @@ export const GRANTABLE_PLAN_IDS: ReadonlyArray<GrantablePlanId> = [
 
 /**
  * Per-plan monthly credit quota. Mirrors `PLANS[*].credits` in
- * jarvis-backend's `src/credits/constants/plans.ts`. Used by the admin
+ * iyona-backend's `src/credits/constants/plans.ts`. Used by the admin
  * UI to render the "grants N credits" preview without an extra fetch.
  *
  * Update both sides if a plan's credits change.

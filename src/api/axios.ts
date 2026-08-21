@@ -2,7 +2,7 @@ import axios from "axios";
 import {
   attachBearerRequestInterceptor,
   create401RefreshErrorInterceptor,
-} from "@jarvis/api-client";
+} from "@iyona/api-client";
 import { LocalStorageService } from "../services/local_storage/LocalStorageService";
 import RouteNames from "../utils/routing/RouteNames";
 

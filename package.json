@@ -1,5 +1,5 @@
 {
-  "name": "jarvis-admin",
+  "name": "iyona-admin",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -8,13 +8,13 @@
   },
   "scripts": {
     "dev": "vite",
-    "build:api-client": "npm run build --prefix packages/jarvis-api-client",
+    "build:api-client": "npm run build --prefix packages/iyona-api-client",
     "build": "npm run build:api-client && tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
   "dependencies": {
-    "@jarvis/api-client": "file:./packages/jarvis-api-client",
+    "@iyona/api-client": "file:./packages/iyona-api-client",
     "@reduxjs/toolkit": "^2.11.2",
     "@tailwindcss/vite": "^4.2.2",
     "axios": "^1.13.2",

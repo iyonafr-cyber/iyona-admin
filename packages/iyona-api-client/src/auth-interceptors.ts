@@ -4,11 +4,11 @@ import axios, {
   AxiosInstance,
   InternalAxiosRequestConfig,
 } from "axios";
-import type { JarvisTokenStore } from "./token-store.js";
+import type { IyonaTokenStore } from "./token-store.js";
 
-export interface JarvisAuthInterceptorOptions {
+export interface IyonaAuthInterceptorOptions {
   baseURL: string;
-  tokenStore: JarvisTokenStore;
+  tokenStore: IyonaTokenStore;
   loginPath: string;
   /** URL substrings for requests that must not trigger the 401 refresh loop. */
   authUrlsThatSkipRefresh: readonly string[];
@@ -27,7 +27,7 @@ type RetriableConfig = InternalAxiosRequestConfig & { _retried?: boolean };
 /** Attach `Authorization: Bearer <access>` from the token store on every request. */
 export function attachBearerRequestInterceptor(
   instance: AxiosInstance,
-  tokenStore: JarvisTokenStore,
+  tokenStore: IyonaTokenStore,
 ): void {
   instance.interceptors.request.use(
     (config) => {
@@ -48,7 +48,7 @@ export function attachBearerRequestInterceptor(
  */
 export function create401RefreshErrorInterceptor(
   instance: AxiosInstance,
-  options: JarvisAuthInterceptorOptions,
+  options: IyonaAuthInterceptorOptions,
 ): (error: AxiosError) => Promise<unknown> {
   const { baseURL, tokenStore, loginPath, authUrlsThatSkipRefresh } = options;
   let refreshPromise: Promise<string> | null = null;

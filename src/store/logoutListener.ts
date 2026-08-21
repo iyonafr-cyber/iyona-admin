@@ -1,8 +1,12 @@
 import { createListenerMiddleware } from "@reduxjs/toolkit";
 import { logout } from "./authSlice";
 
-const THEME_STORAGE_KEY = "jarvis-theme";
-const LANGUAGE_STORAGE_KEY = "jarvis-language";
+const THEME_STORAGE_KEY = "iyona-theme";
+const LANGUAGE_STORAGE_KEY = "iyona-language";
+// Bucket B (rebrand): clear the legacy keys too while both still exist, so a
+// pre-rename preference can't rehydrate after logout.
+const LEGACY_THEME_STORAGE_KEY = "jarvis-theme";
+const LEGACY_LANGUAGE_STORAGE_KEY = "jarvis-language";
 
 /**
  * Clears persisted UI preferences when auth ends so they do not rehydrate
@@ -15,6 +19,8 @@ logoutListenerMiddleware.startListening({
     try {
       localStorage.removeItem(THEME_STORAGE_KEY);
       localStorage.removeItem(LANGUAGE_STORAGE_KEY);
+      localStorage.removeItem(LEGACY_THEME_STORAGE_KEY);
+      localStorage.removeItem(LEGACY_LANGUAGE_STORAGE_KEY);
     } catch {
       /* ignore quota / private mode */
     }
