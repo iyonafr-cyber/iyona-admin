@@ -2,8 +2,10 @@ import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../../store/store";
 import { toggleLanguage } from "../../store/languageSlice";
 
-const STORAGE_KEY = "jarvis-language";
-const EXPLICIT_FLAG_KEY = "jarvis-language-explicit";
+// Bucket B (rebrand): write the new iyona-* keys; the old jarvis-* keys are
+// migrated on read (see LanguageInitializer / preferenceMigration).
+const STORAGE_KEY = "iyona-language";
+const EXPLICIT_FLAG_KEY = "iyona-language-explicit";
 
 interface LanguageToggleProps {
   compact?: boolean;

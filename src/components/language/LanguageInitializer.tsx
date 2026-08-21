@@ -5,26 +5,24 @@ import {
   detectLanguageFromBrowser,
   detectLanguageFromIP,
 } from "../../utils/detectLanguage";
+import { readMigratedLocalStorage } from "../../utils/storage/preferenceMigration";
 
-const STORAGE_KEY = "jarvis-language";
-const EXPLICIT_FLAG_KEY = "jarvis-language-explicit";
+// Bucket B (rebrand): keys renamed jarvis-* → iyona-*, migrated on read.
+const STORAGE_KEY = "iyona-language";
+const EXPLICIT_FLAG_KEY = "iyona-language-explicit";
+const LEGACY_STORAGE_KEY = "jarvis-language";
+const LEGACY_EXPLICIT_FLAG_KEY = "jarvis-language-explicit";
 
 const readStoredLanguage = (): LanguageCode | null => {
-  try {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored === "en" || stored === "fr") return stored;
-  } catch {
-    // ignore storage errors
-  }
+  const stored = readMigratedLocalStorage(STORAGE_KEY, LEGACY_STORAGE_KEY);
+  if (stored === "en" || stored === "fr") return stored;
   return null;
 };
 
 const userHasExplicitlyChosen = (): boolean => {
-  try {
-    return localStorage.getItem(EXPLICIT_FLAG_KEY) === "1";
-  } catch {
-    return false;
-  }
+  return (
+    readMigratedLocalStorage(EXPLICIT_FLAG_KEY, LEGACY_EXPLICIT_FLAG_KEY) === "1"
+  );
 };
 
 const persistDetectedLanguage = (lang: LanguageCode) => {

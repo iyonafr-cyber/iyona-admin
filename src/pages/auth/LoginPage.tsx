@@ -67,11 +67,11 @@ const LoginPage = () => {
       <header className="flex items-center justify-between px-6 py-4 border-b border-border">
         <div className="flex items-center gap-2">
           <img
-            src="/jarvis-logo.png"
-            alt="Jarvis"
+            src="/iyona-logo.png"
+            alt="Iyona"
             className="h-7 w-7 rounded object-contain"
           />
-          <span className="text-sm font-semibold">Jarvis Admin</span>
+          <span className="text-sm font-semibold">Iyona Admin</span>
         </div>
         <div className="flex items-center gap-2">
           <ThemeToggle />
@@ -82,8 +82,8 @@ const LoginPage = () => {
         <div className="w-full max-w-sm rounded-2xl border border-border bg-card p-8 shadow-sm">
           <div className="flex flex-col items-center gap-2 text-center mb-6">
             <img
-              src="/jarvis-logo.png"
-              alt="Jarvis"
+              src="/iyona-logo.png"
+              alt="Iyona"
               className="h-14 w-14 rounded-full bg-primary/30 object-contain p-1"
             />
             <h1 className="text-lg font-semibold">{t("login.title")}</h1>
