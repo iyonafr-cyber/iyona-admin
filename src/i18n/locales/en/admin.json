@@ -136,7 +136,7 @@
       },
       "errors": {
         "stripeConflict": "User has an active Stripe subscription. Tick \"Override\" to proceed.",
-        "invalidPlan": "Pick a paid plan (Starter, Builder, Pro, or Elite).",
+        "invalidPlan": "Pick a paid plan (Starter, Builder, or Pro).",
         "amountInvalid": "Amount paid must be zero or more.",
         "monthsInvalid": "Months must be between 1 and 36."
       },

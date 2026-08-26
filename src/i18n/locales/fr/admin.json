@@ -136,7 +136,7 @@
       },
       "errors": {
         "stripeConflict": "L'utilisateur a un abonnement Stripe actif. Cochez « Outrepasser » pour continuer.",
-        "invalidPlan": "Choisissez un plan payant (Starter, Builder, Pro ou Elite).",
+        "invalidPlan": "Choisissez un plan payant (Starter, Builder ou Pro).",
         "amountInvalid": "Le montant payé doit être positif ou nul.",
         "monthsInvalid": "Le nombre de mois doit être entre 1 et 36."
       },
