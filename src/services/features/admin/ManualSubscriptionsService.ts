@@ -6,13 +6,12 @@ import { API_ENDPOINTS } from "../../../api/endpoints";
  * `GRANTABLE_PLAN_IDS` in iyona-backend's
  * `manual-subscriptions.controller.ts` (free is intentionally excluded).
  */
-export type GrantablePlanId = "starter" | "builder" | "pro" | "elite";
+export type GrantablePlanId = "starter" | "builder" | "pro";
 
 export const GRANTABLE_PLAN_IDS: ReadonlyArray<GrantablePlanId> = [
   "starter",
   "builder",
   "pro",
-  "elite",
 ];
 
 /**
@@ -23,10 +22,9 @@ export const GRANTABLE_PLAN_IDS: ReadonlyArray<GrantablePlanId> = [
  * Update both sides if a plan's credits change.
  */
 export const PLAN_MONTHLY_CREDITS: Record<GrantablePlanId, number> = {
-  starter: 120, // 100 message + floor(2000/100) = 120
-  builder: 350, // 250 + 100
-  pro: 700, // 500 + 200
-  elite: 1700, // 1200 + 500
+  starter: 100,
+  builder: 300,
+  pro: 600,
 };
 
 /** Currency whitelist mirrored from the backend DTO. */
