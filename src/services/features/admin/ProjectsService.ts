@@ -73,6 +73,17 @@ export interface AdminProjectPatch {
   isPublic?: boolean;
 }
 
+/** One archived build: what the brain wrote, and what the agent was given. */
+export interface AdminBuildArtifact {
+  id: string;
+  status: string | null;
+  projectIdea: string | null;
+  /** null for builds that ran before archiving shipped. */
+  brief: string | null;
+  agentPrompt: string | null;
+  createdAt: string | null;
+}
+
 export class ProjectsService {
   static async list(
     query: AdminProjectListQuery = {},
@@ -97,6 +108,17 @@ export class ProjectsService {
       API_ENDPOINTS.ADMIN.PROJECT(id),
     );
     return res.data;
+  }
+
+  /**
+   * Archived build instructions for a project. Fetched on demand rather than
+   * with `detail()` — each record runs to tens of KB.
+   */
+  static async buildArtifacts(id: string): Promise<AdminBuildArtifact[]> {
+    const res = await httpClient.get<{ data: AdminBuildArtifact[] }>(
+      API_ENDPOINTS.ADMIN.PROJECT_BUILD_ARTIFACTS(id),
+    );
+    return res.data ?? [];
   }
 
   static async patch(

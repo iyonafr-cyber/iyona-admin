@@ -23,6 +23,8 @@ export const API_ENDPOINTS = {
       `/admin/users/${id}/manual-subscription`,
     PROJECTS: "/admin/projects",
     PROJECT: (id: string) => `/admin/projects/${id}`,
+    PROJECT_BUILD_ARTIFACTS: (id: string) =>
+      `/admin/projects/${id}/build-artifacts`,
     CREDITS_LEDGER: "/admin/credits/ledger",
     CREDITS_TOP_SPENDERS: "/admin/credits/top-spenders",
     CREDITS_ADJUST: "/admin/credits/adjust",
