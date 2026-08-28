@@ -8,10 +8,12 @@ import type { CursorAgentModel } from "../services/features/admin/SettingsServic
  * FAMILY, not authoritative pricing, and the labels say "typically" for that
  * reason. Check Cursor's own pricing before treating a bucket as a bill.
  *
- * The one hard guarantee: every model in the catalogue lands in exactly one
- * group. Cursor ships new models often, and a model that matched no rule and
- * silently vanished from the dropdown would be unselectable — so unmatched ids
- * fall through to "Other" rather than being dropped.
+ * Every model in the catalogue lands in exactly one group; unmatched ids fall
+ * through to "Other". Note that the picker HIDES the "Other" group, so that
+ * bucket is effectively a quarantine: models in it (today kimi/glm, tomorrow
+ * anything Cursor adds that matches no rule) are not offered. If a new Cursor
+ * model needs to be selectable, add it to one of the rules above rather than
+ * un-hiding the group.
  */
 
 export interface ModelGroup {

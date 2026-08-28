@@ -16,7 +16,10 @@ import {
 } from "../../services/features/admin/UsersService";
 import { ToastService } from "../../services/toast";
 import { getApiErrorMessage } from "../../api/getApiErrorMessage";
-import { groupCursorModels } from "../../utils/groupCursorModels";
+import {
+  groupCursorModels,
+  OTHER_GROUP_LABEL,
+} from "../../utils/groupCursorModels";
 import RouteNames from "../../utils/routing/RouteNames";
 
 const SettingsPage = () => {
@@ -232,7 +235,16 @@ const CodingModelCard = ({
   const catalogue = models ?? [];
   const ids = catalogue.map((m) => m.id);
   const selectedModel = catalogue.find((m) => m.id === modelId);
-  const groups = groupCursorModels(catalogue);
+  // "Other" is hidden: it holds the models we don't offer for code authorship
+  // (kimi/glm today) plus anything Cursor adds that matches no rule. The one
+  // exception is a model from it that is CURRENTLY saved — dropping that from
+  // the list would leave the select with no matching option and silently reset
+  // the admin's choice on the next save.
+  const groups = groupCursorModels(catalogue).flatMap((group) => {
+    if (group.label !== OTHER_GROUP_LABEL) return [group];
+    const saved = group.models.filter((m) => m.id === modelId);
+    return saved.length > 0 ? [{ ...group, models: saved }] : [];
+  });
   // Keep a previously-saved id selectable even if Cursor stops listing it,
   // otherwise opening this page would silently reset the saved value. It gets
   // its own group so it is obvious the id is no longer in Cursor's catalogue.
