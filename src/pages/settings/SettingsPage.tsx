@@ -16,6 +16,7 @@ import {
 } from "../../services/features/admin/UsersService";
 import { ToastService } from "../../services/toast";
 import { getApiErrorMessage } from "../../api/getApiErrorMessage";
+import { groupCursorModels } from "../../utils/groupCursorModels";
 import RouteNames from "../../utils/routing/RouteNames";
 
 const SettingsPage = () => {
@@ -230,10 +231,18 @@ const CodingModelCard = ({
 
   const catalogue = models ?? [];
   const ids = catalogue.map((m) => m.id);
-  // Keep a previously-saved id selectable even if Cursor stops listing it,
-  // otherwise opening this page would silently reset the saved value.
-  const knownIds = modelId && !ids.includes(modelId) ? [modelId, ...ids] : ids;
   const selectedModel = catalogue.find((m) => m.id === modelId);
+  const groups = groupCursorModels(catalogue);
+  // Keep a previously-saved id selectable even if Cursor stops listing it,
+  // otherwise opening this page would silently reset the saved value. It gets
+  // its own group so it is obvious the id is no longer in Cursor's catalogue.
+  const displayGroups =
+    modelId && !ids.includes(modelId)
+      ? [
+          { label: "Saved (no longer listed by Cursor)", models: [{ id: modelId, parameters: [] }] },
+          ...groups,
+        ]
+      : groups;
 
   const selectModel = (id: string) => {
     setModelId(id);
@@ -259,7 +268,7 @@ const CodingModelCard = ({
             <span className="text-xs text-muted-foreground">
               {t("settings.codingModel.label", { defaultValue: "Model" })}
             </span>
-            {knownIds.length > 0 ? (
+            {displayGroups.length > 0 ? (
               <select
                 value={modelId}
                 onChange={(e) => selectModel(e.target.value)}
@@ -270,14 +279,15 @@ const CodingModelCard = ({
                     defaultValue: "Server default",
                   })}
                 </option>
-                {knownIds.map((id) => {
-                  const m = catalogue.find((c) => c.id === id);
-                  return (
-                    <option key={id} value={id}>
-                      {m?.displayName ? `${m.displayName} (${id})` : id}
-                    </option>
-                  );
-                })}
+                {displayGroups.map((group) => (
+                  <optgroup key={group.label} label={group.label}>
+                    {group.models.map((m) => (
+                      <option key={m.id} value={m.id}>
+                        {m.displayName ? `${m.displayName} (${m.id})` : m.id}
+                      </option>
+                    ))}
+                  </optgroup>
+                ))}
               </select>
             ) : (
               // Cursor unreachable: don't block the page, take a typed id.
