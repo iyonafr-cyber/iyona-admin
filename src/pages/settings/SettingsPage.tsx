@@ -192,6 +192,7 @@ const CodingModelCard = ({
 }) => {
   const { t } = useTranslation("admin");
   const [modelId, setModelId] = useState("");
+  const [params, setParams] = useState<Record<string, string>>({});
   const [busy, setBusy] = useState(false);
   const [initialized, setInitialized] = useState(false);
   const { data: models, loading: modelsLoading } = useAsync(
@@ -201,13 +202,23 @@ const CodingModelCard = ({
 
   if (settings && !initialized) {
     setModelId(settings.cursorAgentModelId ?? "");
+    setParams(settings.cursorAgentModelParams ?? {});
     setInitialized(true);
   }
 
   const save = async () => {
     try {
       setBusy(true);
-      await SettingsService.patch({ cursorAgentModelId: modelId || null });
+      // Only keep params with a chosen value; empty selects mean "model
+      // default" and are not persisted. Params without a model make no sense.
+      const cleaned = Object.fromEntries(
+        Object.entries(params).filter(([, v]) => v && v.trim()),
+      );
+      await SettingsService.patch({
+        cursorAgentModelId: modelId || null,
+        cursorAgentModelParams:
+          modelId && Object.keys(cleaned).length > 0 ? cleaned : null,
+      });
       ToastService.success(t("common.saved"));
       reload();
     } catch (err) {
@@ -217,11 +228,18 @@ const CodingModelCard = ({
     }
   };
 
-  const options = models ?? [];
+  const catalogue = models ?? [];
+  const ids = catalogue.map((m) => m.id);
   // Keep a previously-saved id selectable even if Cursor stops listing it,
   // otherwise opening this page would silently reset the saved value.
-  const knownOptions =
-    modelId && !options.includes(modelId) ? [modelId, ...options] : options;
+  const knownIds = modelId && !ids.includes(modelId) ? [modelId, ...ids] : ids;
+  const selectedModel = catalogue.find((m) => m.id === modelId);
+
+  const selectModel = (id: string) => {
+    setModelId(id);
+    // A different model has different valid params — never carry them over.
+    setParams({});
+  };
 
   return (
     <Card title={t("settings.codingModel.title", { defaultValue: "Coding model" })}>
@@ -234,17 +252,17 @@ const CodingModelCard = ({
           <p className="text-xs text-muted-foreground">
             {t("settings.codingModel.hint", {
               defaultValue:
-                "Used by the Cursor agent to write application code. The default model on the Models page drives planning only.",
+                "Used by the Cursor agent to write application code. The default model on the Models page drives planning only. Models and their effort options are fetched live from Cursor, so this list is always current.",
             })}
           </p>
           <label className="block">
             <span className="text-xs text-muted-foreground">
               {t("settings.codingModel.label", { defaultValue: "Model" })}
             </span>
-            {knownOptions.length > 0 ? (
+            {knownIds.length > 0 ? (
               <select
                 value={modelId}
-                onChange={(e) => setModelId(e.target.value)}
+                onChange={(e) => selectModel(e.target.value)}
                 className="mt-1 w-full rounded-md border border-border bg-background px-3 py-2 text-sm"
               >
                 <option value="">
@@ -252,11 +270,14 @@ const CodingModelCard = ({
                     defaultValue: "Server default",
                   })}
                 </option>
-                {knownOptions.map((id) => (
-                  <option key={id} value={id}>
-                    {id}
-                  </option>
-                ))}
+                {knownIds.map((id) => {
+                  const m = catalogue.find((c) => c.id === id);
+                  return (
+                    <option key={id} value={id}>
+                      {m?.displayName ? `${m.displayName} (${id})` : id}
+                    </option>
+                  );
+                })}
               </select>
             ) : (
               // Cursor unreachable: don't block the page, take a typed id.
@@ -274,6 +295,40 @@ const CodingModelCard = ({
               />
             )}
           </label>
+          {selectedModel && selectedModel.parameters.length > 0 && (
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+              {selectedModel.parameters.map((param) => (
+                <label key={param.id} className="block">
+                  <span className="text-xs text-muted-foreground">
+                    {param.displayName || param.id}
+                  </span>
+                  <select
+                    value={params[param.id] ?? ""}
+                    onChange={(e) =>
+                      setParams((prev) => {
+                        const next = { ...prev };
+                        if (e.target.value) next[param.id] = e.target.value;
+                        else delete next[param.id];
+                        return next;
+                      })
+                    }
+                    className="mt-1 w-full rounded-md border border-border bg-background px-3 py-2 text-sm"
+                  >
+                    <option value="">
+                      {t("settings.codingModel.paramDefault", {
+                        defaultValue: "Model default",
+                      })}
+                    </option>
+                    {param.values.map((v) => (
+                      <option key={v.value} value={v.value}>
+                        {v.displayName || v.value}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+              ))}
+            </div>
+          )}
           <div>
             <Button onClick={() => void save()} disabled={busy}>
               {t("settings.maintenance.save")}
