@@ -9,7 +9,10 @@ import Badge from "../../components/ui/Badge";
 import Modal from "../../components/ui/Modal";
 import ConfirmDialog from "../../components/ui/ConfirmDialog";
 import { useAsync } from "../../hooks/useAsync";
-import { ProjectsService } from "../../services/features/admin/ProjectsService";
+import {
+  ProjectsService,
+  type AdminBuildArtifact,
+} from "../../services/features/admin/ProjectsService";
 import type { RootState } from "../../store/store";
 import { formatShortDateTime } from "../../utils/formatDate";
 import { ToastService } from "../../services/toast";
@@ -502,6 +505,8 @@ const ProjectDetailPage = () => {
         </Card>
       )}
 
+      <BuildArtifactsCard projectId={id} lang={lang} />
+
       <ConfirmDialog
         open={action === "takedown"}
         onClose={() => setAction(null)}
@@ -597,6 +602,141 @@ const ProjectDetailPage = () => {
         </div>
       </Modal>
     </div>
+  );
+};
+
+/**
+ * The archived build instructions for a project: for each build, the plan the
+ * LLM brain wrote and the exact prompt the Cursor agent received.
+ *
+ * Loaded on demand (a button, not on mount) because each record runs to tens
+ * of KB and most visits to this page are not about diagnosing a build.
+ */
+const BuildArtifactsCard = ({
+  projectId,
+  lang,
+}: {
+  projectId: string;
+  lang: string;
+}) => {
+  const [artifacts, setArtifacts] = useState<AdminBuildArtifact[] | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [openId, setOpenId] = useState<string | null>(null);
+  const [tab, setTab] = useState<"brief" | "prompt">("brief");
+
+  const load = async () => {
+    try {
+      setLoading(true);
+      const data = await ProjectsService.buildArtifacts(projectId);
+      setArtifacts(data);
+      if (data.length > 0) setOpenId((prev) => prev ?? data[0].id);
+    } catch (err) {
+      ToastService.error(getApiErrorMessage(err, "Failed to load"));
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const open = artifacts?.find((a) => a.id === openId) ?? null;
+  const text = open ? (tab === "brief" ? open.brief : open.agentPrompt) : null;
+
+  const copy = async () => {
+    if (!text) return;
+    try {
+      await navigator.clipboard.writeText(text);
+      ToastService.success("Copied");
+    } catch {
+      ToastService.error("Could not copy");
+    }
+  };
+
+  return (
+    <Card
+      title="Build instructions"
+      className="lg:col-span-2"
+      actions={
+        <Button variant="secondary" onClick={() => void load()} disabled={loading}>
+          {loading ? "Loading…" : artifacts ? "Refresh" : "Load"}
+        </Button>
+      }
+    >
+      <p className="mb-3 text-xs text-muted-foreground">
+        What the LLM planned and the exact prompt the Cursor agent received, per
+        build. Use it to trace a disappointing app back to the instruction that
+        produced it.
+      </p>
+
+      {!artifacts ? (
+        <p className="text-sm text-muted-foreground">
+          Not loaded — these records are large, so they are fetched on request.
+        </p>
+      ) : artifacts.length === 0 ? (
+        <p className="text-sm text-muted-foreground">
+          No builds recorded for this project.
+        </p>
+      ) : (
+        <div className="space-y-3">
+          <div className="flex flex-wrap gap-2">
+            {artifacts.map((a) => (
+              <button
+                key={a.id}
+                type="button"
+                onClick={() => setOpenId(a.id)}
+                className={`rounded-md border px-2 py-1 text-xs ${
+                  a.id === openId
+                    ? "border-primary bg-primary/10 text-foreground"
+                    : "border-border text-muted-foreground hover:bg-muted"
+                }`}
+              >
+                {a.createdAt
+                  ? formatShortDateTime(a.createdAt, lang)
+                  : a.id.slice(-6)}
+                {a.status ? ` · ${a.status}` : ""}
+              </button>
+            ))}
+          </div>
+
+          {open && (
+            <>
+              <div className="flex items-center gap-2">
+                {(["brief", "prompt"] as const).map((key) => (
+                  <button
+                    key={key}
+                    type="button"
+                    onClick={() => setTab(key)}
+                    className={`rounded-md px-2 py-1 text-xs ${
+                      tab === key
+                        ? "bg-muted font-medium text-foreground"
+                        : "text-muted-foreground hover:bg-muted/60"
+                    }`}
+                  >
+                    {key === "brief" ? "Development plan" : "Agent prompt"}
+                  </button>
+                ))}
+                <div className="ml-auto">
+                  <Button variant="secondary" onClick={() => void copy()} disabled={!text}>
+                    Copy
+                  </Button>
+                </div>
+              </div>
+
+              {text ? (
+                <pre className="max-h-[28rem] overflow-auto whitespace-pre-wrap break-words rounded-md border border-border bg-muted/40 p-3 text-xs leading-relaxed">
+                  {text}
+                </pre>
+              ) : (
+                // Builds from before this feature shipped have no archive —
+                // say so, rather than showing an empty box that reads as a bug.
+                <p className="text-sm text-muted-foreground">
+                  Not recorded for this build (it ran before build instructions
+                  were archived).
+                </p>
+              )}
+            </>
+          )}
+        </div>
+      )}
+    </Card>
   );
 };
 
