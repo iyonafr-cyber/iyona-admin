@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
-import { ArrowLeft, Lock, Unlock, ShieldOff, ShieldCheck, Trash2, ExternalLink, Database, Globe, Sparkles, Package } from "lucide-react";
+import { ArrowLeft, Lock, Unlock, ShieldOff, ShieldCheck, Trash2, ExternalLink, Database, Package } from "lucide-react";
 import Card from "../../components/ui/Card";
 import Button from "../../components/button/Button";
 import Badge from "../../components/ui/Badge";
@@ -37,10 +37,6 @@ const ProjectDetailPage = () => {
   const [renameValue, setRenameValue] = useState("");
   const [renameReason, setRenameReason] = useState("");
   const [busy, setBusy] = useState(false);
-  // E5 — local UI state for the admin curation card. Initialized from
-  // the loaded project so the inputs reflect current server state.
-  const [tplCategoryDraft, setTplCategoryDraft] = useState("");
-
   if (loading && !data)
     return <div className="text-sm text-muted-foreground">{t("common.loading")}</div>;
   if (error || !data)
@@ -61,12 +57,6 @@ const ProjectDetailPage = () => {
       : templateName
         ? templateName
         : null;
-  // E5 fields surfaced from the user-project doc.
-  const isPublic = Boolean(project.isPublic);
-  const isTemplate = Boolean(project.isTemplate);
-  const publicSlug = (project.publicSlug as string | undefined) ?? undefined;
-  const templateCategory = (project.templateCategory as string | undefined) ?? "";
-  const remixCount = Number(project.remixCount ?? 0);
   const deployment = project.deployment as
     | { url?: string; status?: string; deployedAt?: string }
     | undefined;
@@ -298,116 +288,6 @@ const ProjectDetailPage = () => {
           </dl>
         </Card>
       </div>
-
-      <Card
-        title={
-          <span className="inline-flex items-center gap-2">
-            <Sparkles size={14} /> Public visibility & templates
-          </span>
-        }
-      >
-        <div className="space-y-4 text-sm">
-          <dl className="grid grid-cols-2 gap-x-6 gap-y-2 md:grid-cols-3">
-            <Field
-              label="Public"
-              value={
-                <Badge tone={isPublic ? "success" : "neutral"}>
-                  {isPublic ? "yes" : "no"}
-                </Badge>
-              }
-            />
-            <Field
-              label="Template"
-              value={
-                <Badge tone={isTemplate ? "success" : "neutral"}>
-                  {isTemplate ? "yes" : "no"}
-                </Badge>
-              }
-            />
-            <Field label="Remixes" value={remixCount} />
-            <Field
-              label="Slug"
-              value={
-                publicSlug ? (
-                  <a
-                    href={`/p/${publicSlug}`}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-1 text-primary hover:underline"
-                  >
-                    /p/{publicSlug}
-                    <ExternalLink size={12} />
-                  </a>
-                ) : (
-                  "—"
-                )
-              }
-            />
-            <Field label="Category" value={templateCategory || "—"} />
-          </dl>
-
-          <div className="flex flex-wrap items-end gap-2">
-            <label className="block">
-              <span className="text-[11px] uppercase tracking-wide text-muted-foreground">
-                Set template category
-              </span>
-              <input
-                value={tplCategoryDraft || templateCategory}
-                onChange={(e) => setTplCategoryDraft(e.target.value)}
-                placeholder="e.g. landing, dashboard, ecommerce"
-                className="mt-1 w-64 rounded-md border border-border bg-background px-3 py-2 text-sm"
-              />
-            </label>
-            <Button
-              variant="secondary"
-              disabled={busy}
-              onClick={() =>
-                handlePatch(
-                  {
-                    isTemplate: true,
-                    templateCategory: (tplCategoryDraft || templateCategory).trim() || undefined,
-                  },
-                  "Marked as template",
-                )
-              }
-            >
-              <span className="inline-flex items-center gap-1">
-                <Sparkles size={14} /> Mark as template
-              </span>
-            </Button>
-            {isTemplate && (
-              <Button
-                variant="secondary"
-                disabled={busy}
-                onClick={() => handlePatch({ isTemplate: false }, "Removed from templates")}
-              >
-                Remove from templates
-              </Button>
-            )}
-            {isPublic ? (
-              <Button
-                variant="secondary"
-                disabled={busy}
-                onClick={() => handlePatch({ isPublic: false }, "Unpublished")}
-              >
-                <span className="inline-flex items-center gap-1">
-                  <Globe size={14} /> Unpublish
-                </span>
-              </Button>
-            ) : (
-              <Button
-                variant="secondary"
-                disabled={busy}
-                onClick={() => handlePatch({ isPublic: true }, "Published")}
-              >
-                <span className="inline-flex items-center gap-1">
-                  <Globe size={14} /> Publish
-                </span>
-              </Button>
-            )}
-          </div>
-        </div>
-      </Card>
 
       {supabase && (
         <Card

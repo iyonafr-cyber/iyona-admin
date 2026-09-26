@@ -67,10 +67,6 @@ export interface AdminProjectPatch {
   locked?: boolean;
   name?: string;
   reason?: string;
-  // E5 — admin curation of public templates gallery.
-  isTemplate?: boolean;
-  templateCategory?: string;
-  isPublic?: boolean;
 }
 
 /** One archived build: what the brain wrote, and what the agent was given. */
